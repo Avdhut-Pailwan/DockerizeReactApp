@@ -19,7 +19,7 @@ services:
       context: ./Backend
       dockerfile: Dockerfile
     environment:
-      - MONGO_URI=${MONGO_URI}
+      - MONGO_URI=mongodb://${MONGO_INITDB_ROOT_USERNAME}:${MONGO_INITDB_ROOT_PASSWORD}@mongodb:27017
       - DB_NAME=${DB_NAME}
       - PORT=${BACKEND_PORT}
     networks:
@@ -34,7 +34,7 @@ services:
       context: ./Frontend
       dockerfile: Dockerfile
     environment:
-      - VITE_API_URL=${VITE_API_URL}
+      - VITE_API_URL=http://backend:${BACKEND_PORT}
       - VITE_PORT=${VITE_PORT}
     ports:
       - ${VITE_PORT}:${VITE_PORT}
