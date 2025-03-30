@@ -20,6 +20,7 @@ export default defineConfig({
 	},
 	preview: {
 		host: true,
-		port: VITE_PORT
+		port: VITE_PORT,
+		allowedHosts: true
 	}
 });
