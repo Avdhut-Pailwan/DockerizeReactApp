@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 
-const apiUrl = process.env.VITE_API_URL;
+const VITE_API_URL = process.env.VITE_API_URL;
+const VITE_PORT = process.env.VITE_PORT;
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,8 +14,12 @@ export default defineConfig({
 	server: {
 		proxy: {
 			'/api': {
-				target: apiUrl,
+				target: VITE_API_URL,
 			},
 		},
 	},
+	preview: {
+		host: true,
+		port: VITE_PORT
+	}
 });

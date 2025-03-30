@@ -1,0 +1,46 @@
+name: dockerize-react-app
+
+services:
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+    networks:
+      - react-network
+    environment:
+      - MONGO_INIT_ROOT_USERNAME=${MONGO_INIT_ROOT_USERNAME}
+      - MONGO_INIT_ROOT_PASSWORD=${MONGO_INIT_ROOT_PASSWORD}
+  backend:
+    image: mahadevs-backend/node:22-alpine
+    container_name: backend
+    depends_on:
+      - mongodb
+    build: 
+      context: ./Backend
+      dockerfile: Dockerfile
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - DB_NAME=${DB_NAME}
+      - PORT=${BACKEND_PORT}
+    networks:
+      - react-network
+    
+  frontend:
+    image: mahadevs-frontend/node:22-alpine
+    depends_on:
+      - backend
+    container_name: frontend
+    build: 
+      context: ./Frontend
+      dockerfile: Dockerfile
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_PORT=${VITE_PORT}
+    ports:
+      - ${VITE_PORT}:${VITE_PORT}
+    networks:
+      - react-network
+
+networks:
+  react-network:
+    driver: bridge

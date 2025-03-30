@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config -e js src/index.js dotenv_config_path=.env.development"
+    "dev": "nodemon -r dotenv/config -e js src/index.js dotenv_config_path=.env.development",
+    "start": "node src/index.js"
   },
   "author": "Avdhut Pailwan",
   "license": "ISC",
