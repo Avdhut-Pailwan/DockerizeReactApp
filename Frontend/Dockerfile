@@ -1,4 +1,4 @@
-FROM node:22-alpine as build_image
+FROM node:22-alpine AS build_image
 
 WORKDIR /frontend
 
@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm run build
 
-FROM node:22-alpine as production_image
+FROM node:22-alpine AS production_image
 
 WORKDIR /frontend
 
@@ -24,4 +24,4 @@ RUN npm i vite
 
 EXPOSE ${VITE_PORT}
 
-CMD [ "npm", "run", "preview" ]
+CMD npm run preview
